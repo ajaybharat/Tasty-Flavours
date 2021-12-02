@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "./HeaderCartButton.module.css";
+import CartContext from "../../store/cart-context";
 
 const HeaderCartButton = (props) => {
+  const cartstore = useContext(CartContext);
+  const totalItems = cartstore.items.reduce((acc, curr) => {
+    acc += curr.amount;
+    return acc;
+  }, 0);
   return (
     <React.Fragment>
       <button
@@ -18,7 +24,7 @@ const HeaderCartButton = (props) => {
           </svg>
         </span>
         <span>Your Cart</span>
-        <span className={classes.badge}>3</span>
+        <span className={classes.badge}>{totalItems}</span>
       </button>
     </React.Fragment>
   );
